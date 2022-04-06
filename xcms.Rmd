@@ -1,0 +1,213 @@
+---
+title: "XCMS"
+author: "Mar Garcia-Aloy"
+output: 
+  BiocStyle::html_document:
+    toc: true
+    number_sections: false
+    toc_float: true
+---
+
+```{r startpoint, include = FALSE}
+startpoint <- Sys.time()
+```
+
+# Libraries
+
+```{r, message=FALSE}
+library(xcms)
+#library(effectsize)
+library(MetaboAnnotation)
+```
+
+# Data import
+
+```{r, eval = FALSE}
+fls <- data.frame(
+  filename = list.files("data/", full.names = TRUE),
+  mode = NA,
+  dilution = NA
+)
+fls$mode[grep("DDA", fls$filename)] <- "DDA"
+fls$mode[grep("Full2Hz", fls$filename)] <- "FS"
+fls$dilution[grep("High", fls$filename)] <- "Undiluted"
+fls$dilution[grep("Low", fls$filename)] <- "Diluted"
+
+idx <- which(fls$mode == "FS")
+data_raw <- readMSData(fls$file[idx], 
+                       pdata = as(AnnotatedDataFrame(fls[idx,]),
+                                  "NAnnotatedDataFrame"), 
+                       mode = "onDisk")
+
+idx <- which(fls$mode == "DDA")
+dda_data <- readMSData(fls$file[idx], 
+                       pdata = as(AnnotatedDataFrame(fls[idx,]),
+                                  "NAnnotatedDataFrame"), 
+                       mode = "onDisk")
+```
+
+# Processing
+
+```{r, eval = FALSE}
+cwp <- CentWaveParam(ppm = 20,
+                     peakwidth = c(5, 30),
+                     prefilter = c(5, 10000),
+                     snthresh = 5,
+                     noise = 1000,
+                     mzdiff = 0.001,
+                     integrate = 2)
+xdata <- findChromPeaks(data_raw, param = cwp)
+pdp <- PeakDensityParam(sampleGroups = xdata$dilution,
+                        minFraction = 1,
+                        binSize = 0.02,
+                        bw = 3)
+xdata <- groupChromPeaks(xdata, param = pdp)
+xdata <- fillChromPeaks(xdata, param = ChromPeakAreaParam())
+
+
+dda_xdata <- findChromPeaks(dda_data, param = cwp)
+pdp@minFraction <- 0.1
+dda_xdata <- groupChromPeaks(dda_xdata, param = pdp)
+dda_spectra <- chromPeakSpectra(dda_xdata, msLevel = 2L, return.type = "Spectra")
+dda_feat <- as.data.frame(featureDefinitions(dda_xdata))
+dda_feat$n_MS2 <- NA
+for(i in seq(nrow((dda_feat)))){
+  i_id <- rownames(chromPeaks(dda_xdata)[dda_feat[i, "peakidx"][[1]],])
+  i_spectra <- dda_spectra[dda_spectra$peak_id %in% i_id]
+  dda_feat$n_MS2[i] <- length(i_spectra)
+}
+
+save(fls, xdata, dda_xdata, dda_spectra, dda_feat, file = "data/RData.RData")
+```
+
+# Biomarkers
+
+```{r}
+load("data/RData.RData")
+feat <- as.data.frame(featureDefinitions(xdata))
+```
+
+
+```{r, eval = FALSE}
+data <- as.data.frame(t(featureValues(xdata, value = "into", method = "sum")))
+myimputer <- function(v){
+  set.seed(123)
+  if(sum(is.na(v)) == 0) {
+    return(v)
+  } else {
+    napos <- which(is.na(v))
+    newval <- runif(length(napos), 0, min(v, na.rm = TRUE))
+    out <- v
+    out[napos] <- newval
+    return(out)
+  }
+}
+data <- apply(data, 2, myimputer)
+feat$es <- apply(data, 2, function(x) cohens_d(log10(x), xdata$filution)$Cohens_d)
+feat$pval <- apply(data, 2, function(x) t.test(log10(x)~xdata$dilution)$p.value)
+feat$padj <- p.adjust(feat$pval, "bonferroni")
+range(feat$es)
+range(feat$padj)
+plot(log2(feat$es), -log10(feat$pval), 
+     xlim = c(- max(abs(log2(feat$es))),  max(abs(log2(feat$es)))), 
+     xlab = "log2(EffectSize)", ylab = "-log10(p-value)", 
+     pch = 16, col = "grey")
+idx <- which(feat$padj < 0.05)
+points(log2(feat$es)[idx], -log10(feat$pval)[idx], col = 2, pch = 16)
+```
+
+# Annotation
+
+## MS1
+
+```{r}
+load("ionsdb.RData")
+
+# Annotate background
+# Annotate compounds
+pks_match <- matchMz(query = feat, 
+                     target = ionsdb, 
+                     param = MzRtParam(ppm = 5, toleranceRt = 10), 
+                     mzColname = c("mzmed", "ion_mz"),
+                     rtColname = c("rtmed", "ion_rt"))
+pks_match 
+# hi ha compostos NO annotats?
+pks <- as.data.frame(matchedData(pks_match))
+# hi ha compostos annotats >1 cop? 
+### acetylcarnitine @0.76 & @0.89 OK
+pks <- pks[!is.na(pks$ppm_error),]
+pks$RT <- pks$rtmed/60
+dpl <- unique(pks$target_name[duplicated(pks$target_name)])
+for(i in dpl){
+  print(pks[pks$target_name == dpl, c("mzmed", "RT", "target_name")])
+}
+ft_chr <- featureChromatograms(xdata, features = "FT1480", 
+                               expandRt = 15, filled = FALSE)
+col_sample <- RColorBrewer::brewer.pal(3, "Set1")[1:2]
+names(col_sample) <- c("Undiluted", "Diluted")
+col_sample <- col_sample[xdata$dilution]
+plot(ft_chr, col = col_sample,
+     peakBg = paste0(col_sample[chromPeaks(ft_chr)[, "sample"]], 40))
+# hi ha features amb multiples anotacions?
+```
+
+
+## MS2
+
+```{r}
+dda_feat$FTDDA <- rownames(dda_feat)
+pks_match <- matchMz(query = feat, 
+                     target = dda_feat, 
+                     param = MzRtParam(ppm = 5, toleranceRt = 10), 
+                     mzColname = c("mzmed", "mzmed"),
+                     rtColname = c("rtmed", "rtmed"))
+
+pks_ms2 <- as.data.frame(matchedData(pks_match))
+pks_ms2$RT <- pks_ms2$rtmed/60
+pks_ms2[rownames(pks_ms2) %in% rownames(pks), c("mzmed", "RT", "target_n_MS2")]
+```
+
+```{r}
+library(Spectra)
+plotms2 <- function(mz, int, main = main, minint){
+  plot(mz, int, main = main, type = "h", ylim = c(0, max(int)))
+  idx <- which(int / max(int) > minint)
+  text(mz[idx], int[idx], round(mz, 4)[idx], cex=0.8)
+}
+
+(ms2sub <- filterPrecursorMzRange(dda_spectra, 204.1230  + 0.01 * c(-1,1)))
+
+
+idx <- which(fls$mode == "DDA")
+ms2 <- Spectra(fls$file[idx], backend = MsBackendDataFrame())
+ms2 <- ms2[msLevel(ms2) == 2]
+(ms2sub <- filterPrecursorMzRange(ms2, 204.1230  + 0.01 * c(-1,1)))
+(ms2sub <- filterRt(ms2sub, 48 + 10 * c(-1, 1)))
+j <- 2
+dt <- as.data.frame(cbind("mz" = unlist(mz(ms2sub[j])),
+                          "intensity" = unlist(intensity(ms2sub[j]))))
+plotms2(dt$mz, dt$intensity, 
+        main = paste(round(precursorMz(ms2sub[j]), 4), "@", round(rtime(ms2sub[j])/60, 2)), 
+        minint = 0.1)
+```
+
+# Others
+
+## Isotopic patter
+
+## Feature grouping
+
+## Isomers
+Theobromine
+Theophylline
+
+## Annotation levels
+use standards injected vs massbank
+
+
+# Session information
+
+```{r session}
+Sys.time()-startpoint
+devtools::session_info()
+```
