@@ -1,5 +1,5 @@
 ---
-title: "QC samples"
+title: "Quality Management in Metabolomics"
 author: "Mar Garcia-Aloy"
 format: 
   revealjs: 
@@ -9,21 +9,98 @@ format:
     footer: mar.garcia@fmach.it
 ---
 
-## Quarto
+It encompasses a series of activities that provide a mechanism to ensure that measurements are repeatable.  
+<br/>
+**Key concepts in Quality Management (QM):**  
+  
+-   Quality Assurance (QA) is related to the procedures applied before and during data acquisition  
+-   Quality control (QC) refers to the procedures applied in the individual measures to assess if the quality requirements have been achieved
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+::: footer
+Metabolomics. 2019;15(1):04. doi: 10.1007/s11306-018-1460-7.  
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
 
-## Bullets
+## Quality Assurance
+  
+  - Standardized training  
+  - Use of standard operating procedures (SOPs)
+  - Instrument calibration  
+  - Instrument system suitability tests (SSTs)  
+  - Ensure the quality requirements are fulfilled before starting a sequence
 
-When you click the **Render** button a document will be generated that includes:
+::: footer
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
 
--   Content authored with markdown
--   Output from executable code
+## Quality Control  
+  
+Analysis of signals detected in QC samples
 
-## Code
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+## QC materials
 
-```{r}
-1 + 1
-```
+Types of samples/mixtures prepared to assess the quality of the data:
+  
+  -   Pooled samples (study-specific, intra-batch, long-term QC)  
+  -   Phenotypic pooled samples
+  -   Commercially available sample
+  -   Synthetic chemical standards mixture  
+  -   Blanks
+
+::: footer
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
+
+## Design of QC program
+  
+  - Type of QC samples  
+  - Frequency of QC sample injection  
+  - Randomization of study samples  
+  - Parameters to monitor data from QC samples  
+
+::: footer
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
+
+## Scheme for the use of QC samples
+
+![](images/scheme_QC.webp){fig-align="center"}
+
+::: footer
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
+
+## Minimum Reporting Requirements 
+
+
+![](images/minreports.webp){fig-align="center"}
+
+::: footer
+Suggestions made by the metabolomics QA and QC Consortium (mQACC)  
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
+
+## LC-MS injection queue structure
+
+![](images/queue.png){fig-align="center"}
+
+::: footer
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384
+:::
+
+
+## System Suitability Tests (SSTs)  
+  
+- Examination of background noise  
+- Chromatographic peak shape  
+- Mass accuracy & stability  
+- Retention time stability  
+- Intensity stability  
+
+
+## Evaluation of QC samples along injection queue  
+  
+  - General random/systematic effects monitorization (PCA)  
+  - Within-feature analysis precision (mass accuracy/stability, RT/intensity stability)   
+  - Within-feature linearity  

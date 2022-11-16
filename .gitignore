@@ -1,6 +1,3 @@
-data*
-*docx
-*pdf
-*RData
-*csv
-*sqlite
+z_*
+*pptx
+*xlsx
