@@ -3,7 +3,7 @@ title: "Quality Management in Metabolomics"
 author: "Mar Garcia-Aloy"
 format: 
   revealjs: 
-    slide-number: true
+    slide-number: false
     chalkboard: 
       buttons: true
     footer: mar.garcia@fmach.it
@@ -99,8 +99,102 @@ Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384
 - Intensity stability  
 
 
+## System Suitability Tests (SSTs)  
+
+![](images/BPI_NEG.png){fig-align="center"}
+
+## System Suitability Tests (SSTs)  
+
+![](images/BPI_NEG_EIC.png){fig-align="center"}
+
+## System Suitability Tests (SSTs)  
+
+Chromatographic peak shape  
+
+![](images/SST_NEG_169_EIC.png){fig-align="center"}
+
+## System Suitability Tests (SSTs)  
+
+Retention time stability
+
+![](images/SST_NEG_169_RT.png){fig-align="center"}
+
+## System Suitability Tests (SSTs)  
+
+Mass accuracy and stability
+
+![](images/SST_NEG_169_mz.png){fig-align="center"}
+
+## System Suitability Tests (SSTs)  
+
+Intensity stability
+
+![](images/SST_NEG_169_intensity.png){fig-align="center"}
+
 ## Evaluation of QC samples along injection queue  
   
   - General random/systematic effects monitorization (PCA)  
   - Within-feature analysis precision (mass accuracy/stability, RT/intensity stability)   
   - Within-feature linearity  
+
+
+## Queue evaluation
+
+General overview through PCA: Wine samples colored by type
+
+![](images/NEG_wines_PCA_type.png)
+
+
+## Queue evaluation
+
+General overview through PCA: Wines colored by inj. order
+
+![](images/NEG_wines_PCA_order.png)
+
+
+## Queue evaluation
+
+General overview through PCA: Urine samples colored by type
+
+![](images/NEG_urine_PCA_type.png)
+
+
+## Queue evaluation
+
+General overview through PCA: Urines colored by inj. order
+
+![](images/NEG_urine_PCA_order.png)
+
+
+## Queue evaluation  
+
+![](images/BPI_NEG_EIC.png){fig-align="center"}
+
+## Queue evaluation  
+
+Chromatographic peak shape  
+
+![](images/QC_NEG_169_EIC.png){fig-align="center"}
+
+## Queue evaluation  
+
+Retention time stability
+
+![](images/QC_NEG_169_RT.png){fig-align="center"}
+
+## Queue evaluation  
+
+Mass accuracy and stability
+
+![](images/QC_NEG_169_mz.png){fig-align="center"}
+
+## Queue evaluation  
+
+Intensity stability
+
+![](images/QC_NEG_169_intensity.png){fig-align="center"}
+
+
+## Queue evaluation  
+
+Linearity
