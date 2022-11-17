@@ -3,3 +3,7 @@ This repository contains a collection of material (both theoretical presentation
   
   - [QC samples](https://mar-garcia.github.io/training_metabolomics/QC_samples.html)  
   - [MS and MS/MS](https://mar-garcia.github.io/training_metabolomics/MS_MSMS.html)
+  
+Tools:
+  
+  - [Mass calculations](https://garciamar.shinyapps.io/formula_finder/)
