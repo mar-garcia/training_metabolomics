@@ -330,84 +330,111 @@
   <p class="author">Mar Garcia-Aloy</p>
 </section>
 
-<section class="slide level2">
+<section id="section" class="slide level2">
+<h2></h2>
+<p>Quality Management (QM) encompasses a series of activities that provide a mechanism to ensure that measurements are repeatable.</p>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<p>Quality Management (QM) encompasses a series of activities that provide a mechanism to ensure that measurements are repeatable.<br>
+<br> <strong>Some initial aspects to keep in mind…</strong></p>
+<div>
+<ul>
+<li class="fragment">MS performance degrade with time -&gt; reduce as much as possible the length of the chromatographic run<br>
+</li>
+<li class="fragment">We cannot avoid analytical variability -&gt; Add QC samples along your sequence</li>
+<li class="fragment">Randomize the order in which the samples will be injected<br>
+</li>
+<li class="fragment">In case or large sample sets, consider stratifying the samples across batches<br>
+</li>
+</ul>
+</div>
+</section>
+<section id="randomization" class="slide level2">
+<h2>Randomization</h2>
+<p>In case of small datasets -&gt; complete randomization</p>
 
-<p>It encompasses a series of activities that provide a mechanism to ensure that measurements are repeatable.<br>
-<br> <strong>Key concepts in Quality Management (QM):</strong></p>
+<img data-src="QC_samples_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
+<section id="randomization-1" class="slide level2">
+<h2>Randomization</h2>
+<p>In case of large datasets -&gt; block experimental design before randomization</p>
+<div>
 <ul>
-<li>Quality Assurance (QA) is related to the procedures applied before and during data acquisition<br>
+<li class="fragment">Balance the number of samples for each factor of interest among the batches<br>
 </li>
-<li>Quality control (QC) refers to the procedures applied in the individual measures to assess if the quality requirements have been achieved</li>
+<li class="fragment">Consider if allocate all samples from the same ID (i.e., plant, subject….) in the same batch<br>
+</li>
 </ul>
-<div class="footer">
-<p>Metabolomics. 2019;15(1):04. doi: 10.1007/s11306-018-1460-7.<br>
-Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
 </div>
 </section>
-<section id="quality-assurance" class="slide level2">
-<h2>Quality Assurance</h2>
+<section id="randomization-2" class="slide level2">
+<h2>Randomization</h2>
+<p>In case of large datasets -&gt; block experimental design before randomization</p>
+
+<img data-src="QC_samples_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section id="quality-control-samples-qc" class="slide level2">
+<h2>Quality Control Samples (QC)</h2>
+<p>Ref samples should be regularly injected along the sequence.</p>
+<p>They measure analytical stability (the sample is the same).<br>
+<br> Options:</p>
 <ul>
-<li>Standardized training<br>
+<li>Pooled samples (study-specific, intra-batch, long-term QC)*<br>
 </li>
-<li>Use of standard operating procedures (SOPs)</li>
-<li>Instrument calibration<br>
-</li>
-<li>Instrument system suitability tests (SSTs)<br>
-</li>
-<li>Ensure the quality requirements are fulfilled before starting a sequence</li>
-</ul>
-<div class="footer">
-<p>Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
-</div>
-</section>
-<section id="quality-control" class="slide level2">
-<h2>Quality Control</h2>
-<p>Analysis of signals detected in QC samples</p>
-</section>
-<section id="qc-materials" class="slide level2">
-<h2>QC materials</h2>
-<p>Types of samples/mixtures prepared to assess the quality of the data:</p>
-<ul>
-<li>Pooled samples (study-specific, intra-batch, long-term QC)<br>
-</li>
-<li>Phenotypic pooled samples</li>
+<li>Phenotypic pooled samples*</li>
 <li>Commercially available sample</li>
-<li>Synthetic chemical standards mixture<br>
-</li>
-<li>Blanks</li>
+<li>Synthetic chemical standards mixture</li>
 </ul>
+<p>*They are representative of the composition of the study samples</p>
 <div class="footer">
 <p>Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
 </div>
 </section>
-<section id="design-of-qc-program" class="slide level2">
-<h2>Design of QC program</h2>
+<section id="sample-file-labeling" class="slide level2">
+<h2>Sample (file) labeling</h2>
+<p>It is highly recommended to name the files in such a way that they are easily identifiable.</p>
+<div>
 <ul>
-<li>Type of QC samples<br>
+<li class="fragment">Avoid spaces and special symbols: only use “_”<br>
 </li>
-<li>Frequency of QC sample injection<br>
+<li class="fragment">Separate the different characteristics by “_”<br>
 </li>
-<li>Randomization of study samples<br>
-</li>
-<li>Parameters to monitor data from QC samples</li>
+<li class="fragment">Examples of factors to include in the file name: order of injection, main class, sub-class, ID, time-point, replicate, ionization mode, MS modality (optional: study name/acronym, sample type)</li>
 </ul>
-<div class="footer">
-<p>Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
 </div>
 </section>
-<section id="scheme-for-the-use-of-qc-samples" class="slide level2">
-<h2>Scheme for the use of QC samples</h2>
-
-<img data-src="images/scheme_QC.webp" class="r-stretch quarto-figure-center"><div class="footer">
-<p>Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
+<section id="sample-file-labeling-1" class="slide level2">
+<h2>Sample (file) labeling</h2>
+<p>It is highly recommended to name the files in such a way that they are easily identifiable.</p>
+<ul>
+<li>Use the same number of descriptors (factors) for each file (i.e., same number of “_“)</li>
+</ul>
+<div>
+<ul>
+<li class="fragment">Optional: Use the same number of characters for each descriptor</li>
+</ul>
 </div>
 </section>
-<section id="minimum-reporting-requirements" class="slide level2">
-<h2>Minimum Reporting Requirements</h2>
-
-<img data-src="images/minreports.webp" class="r-stretch quarto-figure-center"><div class="footer">
-<p>Suggestions made by the metabolomics QA and QC Consortium (mQACC)<br>
-Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
+<section id="sample-file-labeling-2" class="slide level2">
+<h2>Sample (file) labeling</h2>
+<p>Example:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                         name    variety                        name    variety
+1    x001_X_eqblnk_X_1_POS_FS          x       x016_X_QC_X_4_NEG_HRc          x
+2    x002_X_eqblnk_X_2_POS_FS          x x017_red_merlot_B_1_NEG_HRc     merlot
+3      x003_X_eqQC_X_1_POS_FS          x x018_wht_chardo_C_1_NEG_HRc chardonnay
+4      x004_X_eqQC_X_2_POS_FS          x x019_red_ptnoir_A_1_NEG_HRc pinot noir
+5      x005_X_eqQC_X_3_POS_FS          x x020_wht_vermen_A_1_NEG_HRc vermentino
+8     x008_X_blank_X_1_POS_FS          x x021_red_lagrei_A_1_NEG_HRc    lagrein
+9        x009_X_QC_X_1_POS_FS          x x022_wht_gewurz_A_1_NEG_HRc   traminer
+10       x010_X_QC_X_2_POS_FS          x x023_wht_chardo_A_1_NEG_HRc chardonnay
+11 x011_red_sangio_B_1_POS_FS sangiovese x024_red_lagrei_B_1_NEG_HRc    lagrein
+12 x012_wht_chardo_B_1_POS_FS chardonnay x025_wht_ptgrig_A_1_NEG_HRc pin grigio
+13 x013_red_ptnoir_A_1_POS_FS pinot noir x026_red_merlot_A_1_NEG_HRc     merlot
+14 x014_wht_vermen_A_1_POS_FS vermentino    x027_X_blank_X_3_NEG_HRc          x
+15 x015_red_lagrei_B_1_POS_FS    lagrein       x028_X_QC_X_5_NEG_HRc          x
+16 x016_wht_sauvig_A_1_POS_FS  sauvignon       x029_X_QC_X_6_NEG_HRc          x</code></pre>
+</div>
 </div>
 </section>
 <section id="lc-ms-injection-queue-structure" class="slide level2">
@@ -417,106 +444,85 @@ Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
 <p>Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384</p>
 </div>
 </section>
-<section id="system-suitability-tests-ssts" class="slide level2">
-<h2>System Suitability Tests (SSTs)</h2>
-<ul>
-<li>Examination of background noise<br>
-</li>
-<li>Chromatographic peak shape<br>
-</li>
-<li>Mass accuracy &amp; stability<br>
-</li>
-<li>Retention time stability<br>
-</li>
-<li>Intensity stability</li>
-</ul>
+<section id="scheme-for-the-use-of-qc-samples" class="slide level2">
+<h2>Scheme for the use of QC samples</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p>Procedure suggested by the <code>Metabolomics QA &amp; QC Consortium (mQACC)</code> of the Metabolomics Society.</p>
+</div><div class="column" style="width:65%;">
+<p><img data-src="images/scheme_QC.webp"></p>
+</div>
+</div>
+<div class="footer">
+<p>Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
+</div>
 </section>
-<section id="system-suitability-tests-ssts-1" class="slide level2">
-<h2>System Suitability Tests (SSTs)</h2>
-
-<img data-src="images/BPI_NEG.png" class="r-stretch quarto-figure-center"></section>
-<section id="system-suitability-tests-ssts-2" class="slide level2">
-<h2>System Suitability Tests (SSTs)</h2>
-
-<img data-src="images/BPI_NEG_EIC.png" class="r-stretch quarto-figure-center"></section>
-<section id="system-suitability-tests-ssts-3" class="slide level2">
-<h2>System Suitability Tests (SSTs)</h2>
-<p>Chromatographic peak shape</p>
-
-<img data-src="images/SST_NEG_169_EIC.png" class="r-stretch quarto-figure-center"></section>
-<section id="system-suitability-tests-ssts-4" class="slide level2">
-<h2>System Suitability Tests (SSTs)</h2>
-<p>Retention time stability</p>
-
-<img data-src="images/SST_NEG_169_RT.png" class="r-stretch quarto-figure-center"></section>
-<section id="system-suitability-tests-ssts-5" class="slide level2">
-<h2>System Suitability Tests (SSTs)</h2>
-<p>Mass accuracy and stability</p>
-
-<img data-src="images/SST_NEG_169_mz.png" class="r-stretch quarto-figure-center"></section>
-<section id="system-suitability-tests-ssts-6" class="slide level2">
-<h2>System Suitability Tests (SSTs)</h2>
-<p>Intensity stability</p>
-
-<img data-src="images/SST_NEG_169_intensity.png" class="r-stretch quarto-figure-center"></section>
-<section id="evaluation-of-qc-samples-along-injection-queue" class="slide level2">
-<h2>Evaluation of QC samples along injection queue</h2>
+<section id="evaluation-of-qc-samples" class="slide level2">
+<h2>Evaluation of QC samples</h2>
+<div>
 <ul>
-<li>General random/systematic effects monitorization (PCA)<br>
+<li class="fragment">General random/systematic effects monitorization (PCA)<br>
 </li>
-<li>Within-feature analysis precision (mass accuracy/stability, RT/intensity stability)<br>
+<li class="fragment">Within-feature analysis precision (mass accuracy/stability, RT/intensity stability)<br>
 </li>
-<li>Within-feature linearity</li>
+<li class="fragment">Within-feature linearity<br>
+</li>
 </ul>
+</div>
 </section>
-<section id="queue-evaluation" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation" class="slide level2">
+<h2>QC evaluation</h2>
 <p>General overview through PCA: Wine samples colored by type</p>
 
 <img data-src="images/NEG_wines_PCA_type.png" class="r-stretch"></section>
-<section id="queue-evaluation-1" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-1" class="slide level2">
+<h2>QC evaluation</h2>
 <p>General overview through PCA: Wines colored by inj. order</p>
 
 <img data-src="images/NEG_wines_PCA_order.png" class="r-stretch"></section>
-<section id="queue-evaluation-2" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-2" class="slide level2">
+<h2>QC evaluation</h2>
 <p>General overview through PCA: Urine samples colored by type</p>
 
 <img data-src="images/NEG_urine_PCA_type.png" class="r-stretch"></section>
-<section id="queue-evaluation-3" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-3" class="slide level2">
+<h2>QC evaluation</h2>
 <p>General overview through PCA: Urines colored by inj. order</p>
 
 <img data-src="images/NEG_urine_PCA_order.png" class="r-stretch"></section>
-<section id="queue-evaluation-4" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-4" class="slide level2">
+<h2>QC evaluation</h2>
+
+<img data-src="images/BPI_NEG.png" class="r-stretch quarto-figure-center"></section>
+<section id="qc-evaluation-5" class="slide level2">
+<h2>QC evaluation</h2>
 
 <img data-src="images/BPI_NEG_EIC.png" class="r-stretch quarto-figure-center"></section>
-<section id="queue-evaluation-5" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-6" class="slide level2">
+<h2>QC evaluation</h2>
 <p>Chromatographic peak shape</p>
 
 <img data-src="images/QC_NEG_169_EIC.png" class="r-stretch quarto-figure-center"></section>
-<section id="queue-evaluation-6" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-7" class="slide level2">
+<h2>QC evaluation</h2>
 <p>Retention time stability</p>
 
 <img data-src="images/QC_NEG_169_RT.png" class="r-stretch quarto-figure-center"></section>
-<section id="queue-evaluation-7" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-8" class="slide level2">
+<h2>QC evaluation</h2>
 <p>Mass accuracy and stability</p>
 
 <img data-src="images/QC_NEG_169_mz.png" class="r-stretch quarto-figure-center"></section>
-<section id="queue-evaluation-8" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-9" class="slide level2">
+<h2>QC evaluation</h2>
 <p>Intensity stability</p>
 
 <img data-src="images/QC_NEG_169_intensity.png" class="r-stretch quarto-figure-center"></section>
-<section id="queue-evaluation-9" class="slide level2">
-<h2>Queue evaluation</h2>
+<section id="qc-evaluation-10" class="slide level2">
+<h2>QC evaluation</h2>
 <p>Linearity</p>
-<div class="footer footer-default">
+
+<img data-src="images/QC_linearity.png" class="r-stretch"><div class="footer footer-default">
 <p>mar.garcia@fmach.it</p>
 </div>
 </section>
@@ -574,7 +580,7 @@ Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -733,6 +739,48 @@ Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3</p>
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
