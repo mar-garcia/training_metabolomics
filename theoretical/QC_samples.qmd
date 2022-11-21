@@ -1,0 +1,299 @@
+---
+title: "Quality Management in Metabolomics"
+author: "Mar Garcia-Aloy"
+format: 
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    footer: mar.garcia@fmach.it
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(patchwork)
+```
+
+## 
+
+Quality Management (QM) encompasses a series of activities that provide a mechanism to ensure that measurements are repeatable.  
+
+## 
+
+Quality Management (QM) encompasses a series of activities that provide a mechanism to ensure that measurements are repeatable.  
+<br>
+**Some initial aspects to keep in mind...**  
+  
+::: incremental
+
+  - MS performance degrade with time -> reduce as much as possible the length of the chromatographic run  
+  - We cannot avoid analytical variability -> Add QC samples along your sequence
+  - Randomize the order in which the samples will be injected  
+  - In case or large sample sets, consider stratifying the samples across batches    
+:::
+
+
+## Randomization  
+
+In case of small datasets -> complete randomization
+
+```{r}
+nr <- data.frame(
+  color = rep(c("white", "red"), each = 10),
+  variety = c(rep("pino grig", 3), rep("chardon", 3), "verment", 
+              "moscato", "traminer", "sauvign",
+              rep("merlot", 2), rep("legrein", 2), rep("sangiov", 2), 
+              rep("pino noir", 2), "cannona", "shiraz"),
+  order = seq(20)
+)
+p1 <- nr %>%
+  ggplot() + 
+  geom_point(aes(y = 1, x = order, fill = color), pch = 21, size = 3)  + 
+  geom_text(aes(y = 1, x = order, label = variety), angle = 90, size = 3, 
+            hjust = 1.5, vjust = 0, col = "grey") +
+  theme_bw() + xlab("Injection Order") + ylab("") + 
+  scale_fill_brewer(palette = "Set1", name = "Wine Color") + 
+  theme(aspect.ratio = 0.5, legend.position = "none", 
+        axis.text.y=element_blank()) +
+  ggtitle("non random")
+
+rn <- nr
+set.seed(1234)
+rn$order <- sample(seq(20))
+rn <- rn[order(rn$order),]
+p2 <- rn %>%
+  ggplot() + 
+  geom_point(aes(y = 1, x = order, fill = color), pch = 21, size = 3)  + 
+  geom_text(aes(y = 1, x = order, label = variety), angle = 90, size = 3, 
+            hjust = 1.5, vjust = 0, col = "grey") +
+  theme_bw() + xlab("Injection Order") + ylab("") + 
+  scale_fill_brewer(palette = "Set1", name = "Wine Color") + 
+  theme(aspect.ratio = 0.5, legend.position = "bottom", 
+        axis.text.y=element_blank())+
+  ggtitle("random")
+
+p1 + p2
+```
+
+
+## Randomization  
+
+In case of large datasets -> block experimental design before randomization
+
+::: incremental 
+
+  - Balance the number of samples for each factor of interest among the batches      
+  - Consider if allocate all samples from the same ID (i.e., plant, subject....) in the same batch  
+:::
+
+
+## Randomization  
+
+In case of large datasets -> block experimental design before randomization
+
+```{r}
+nr <- data.frame(
+  batch = rep(c("Batch 1","Batch 2"), each = 20),
+  color = rep(c("white", "red"), each = 20),
+  variety = c(rep("pi grig", 6), rep("chrdn", 6), rep("vrmnt", 2), 
+              rep("mosct", 2), rep("trminr", 2), rep("svigon", 2),
+              rep("merlot", 4), rep("legrn", 4), rep("sangio", 4), 
+              rep("pi noir", 4), rep("canon", 2), rep("shiraz", 2)),
+  order = rep(1:20, times = 2)
+)
+p1 <- nr %>%
+  ggplot() + 
+  geom_point(aes(y = batch, x = order, fill = color), pch = 21, size = 3)  + 
+  geom_text(aes(y = batch, x = order, label = variety), angle = 90, size = 3, 
+            hjust = 1.5, vjust = 0, col = "grey") +
+  theme_bw() + xlab("Injection Order") + ylab("") + 
+  scale_fill_brewer(palette = "Set1", name = "Wine Color") + 
+  theme(aspect.ratio = 0.5, legend.position = "none") +
+  ggtitle("non block & non random") 
+
+rn <- nr
+set.seed(321)
+rn$order <- sample(seq(40))
+rn <- rn[order(rn$color, rn$variety, rn$order),]
+rn$batch <- rep(c("Batch 1","Batch 2"), 20)
+rn <- rn[order(rn$batch, rn$order),]
+rn$order <- rep(1:20, times = 2)
+p2 <- rn %>%
+  ggplot() + 
+  geom_point(aes(y = batch, x = order, fill = color), pch = 21, size = 3)  + 
+  geom_text(aes(y = batch, x = order, label = variety), angle = 90, size = 3, 
+            hjust = 1.5, vjust = 0, col = "grey") +
+  theme_bw() + xlab("Injection Order") + ylab("") + 
+  scale_fill_brewer(palette = "Set1", name = "Wine Color") + 
+  theme(aspect.ratio = 0.5, legend.position = "bottom") +
+  ggtitle("block & random")
+
+p1 + p2
+```
+
+
+## Quality Control Samples (QC)
+
+Ref samples should be regularly injected along the sequence.  
+  
+They measure analytical stability (the sample is the same).  
+<br>
+Options:
+  
+  -   Pooled samples (study-specific, intra-batch, long-term QC)*  
+  -   Phenotypic pooled samples*
+  -   Commercially available sample
+  -   Synthetic chemical standards mixture  
+
+
+*They are representative of the composition of the study samples  
+
+::: footer
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
+
+
+## Sample (file) labeling
+
+It is highly recommended to name the files in such a way that they are easily identifiable.  
+
+::: incremental   
+
+- Avoid spaces and special symbols: only use "_"  
+- Separate the different characteristics by "_"  
+- Examples of factors to include in the file name: order of injection, main class, sub-class, ID, time-point, replicate, ionization mode, MS modality (optional: study name/acronym, sample type)
+
+:::
+
+## Sample (file) labeling
+
+It is highly recommended to name the files in such a way that they are easily identifiable.  
+
+- Use the same number of descriptors (factors) for each file (i.e., same number of "_")  
+
+::: incremental   
+
+- Optional: Use the same number of characters for each descriptor  
+
+:::
+
+
+## Sample (file) labeling
+
+Example:
+
+
+```{r}
+dt <- read.csv("C:/Users/garciaalom/Google Drive/projectes/course_wine/output/sequence_20221006.csv")
+dt$variety <- gsub("gewurztraminer", "traminer", dt$variety)
+dt$variety <- gsub("pinot grigio", "pin grigio", dt$variety)
+cbind(dt[c(1:5, 8:16), c(12, 3)], dt[c(337:350), c(12, 3)])
+```
+
+
+## LC-MS injection queue structure
+
+![](images/queue.png){fig-align="center"}
+
+::: footer
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384
+:::
+
+
+## Scheme for the use of QC samples  
+
+:::: {.columns}
+
+::: {.column width="35%"}
+Procedure suggested by the `Metabolomics QA & QC Consortium (mQACC)` of the Metabolomics Society.
+:::
+
+::: {.column width="65%"}
+![](images/scheme_QC.webp)
+:::
+
+::::
+
+
+::: footer
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
+
+
+
+## Evaluation of QC samples  
+
+::: incremental 
+  
+  - General random/systematic effects monitorization (PCA)  
+  - Within-feature analysis precision (mass accuracy/stability, RT/intensity stability)   
+  - Within-feature linearity  
+:::
+
+## QC evaluation
+
+General overview through PCA: Wine samples colored by type
+
+![](images/NEG_wines_PCA_type.png)
+
+
+## QC evaluation
+
+General overview through PCA: Wines colored by inj. order
+
+![](images/NEG_wines_PCA_order.png)
+
+
+## QC evaluation
+
+General overview through PCA: Urine samples colored by type
+
+![](images/NEG_urine_PCA_type.png)
+
+
+## QC evaluation
+
+General overview through PCA: Urines colored by inj. order
+
+![](images/NEG_urine_PCA_order.png)
+
+
+## QC evaluation  
+
+![](images/BPI_NEG.png){fig-align="center"}
+
+
+## QC evaluation  
+
+![](images/BPI_NEG_EIC.png){fig-align="center"}
+
+## QC evaluation  
+
+Chromatographic peak shape  
+
+![](images/QC_NEG_169_EIC.png){fig-align="center"}
+
+## QC evaluation  
+
+Retention time stability
+
+![](images/QC_NEG_169_RT.png){fig-align="center"}
+
+## QC evaluation  
+
+Mass accuracy and stability
+
+![](images/QC_NEG_169_mz.png){fig-align="center"}
+
+## QC evaluation  
+
+Intensity stability
+
+![](images/QC_NEG_169_intensity.png){fig-align="center"}
+
+
+## QC evaluation  
+
+Linearity
+
+![](images/QC_linearity.png)
