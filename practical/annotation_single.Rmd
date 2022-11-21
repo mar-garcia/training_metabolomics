@@ -15,5 +15,5 @@ A number of tools are available to interrogate to which compound(s) a particular
 <br>
 In the examples listed below I will first show how to extract the MS/MS spectra of interest and then how to search for the compound(s) it might correspond to by using the aforementioned tools:  
     
-  - [Example 1](https://mar-garcia.github.io/training_metabolomics/practical/annotation/example1.html)   
-  
+  - [Example 1](https://mar-garcia.github.io/training_metabolomics/practical/annotation/example1.html)  
+  - [Example 2](https://mar-garcia.github.io/training_metabolomics/practical/annotation/example2.html)   
