@@ -10,7 +10,9 @@ This repository contains a collection of material (both theoretical presentation
 
 ## Practical sessions  
   
-  - Metabolite Annotation: [query a single MS/MS spectrum](https://mar-garcia.github.io/training_metabolomics/practical/annotation_single.html)
+  - [Metabolite Annotation](https://mar-garcia.github.io/training_metabolomics/practical/annotation.html):   
+    - Query a single MS/MS spectrum  
+    - Molecular Networking  
   
 ## Tools
   

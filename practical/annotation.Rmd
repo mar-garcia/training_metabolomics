@@ -1,0 +1,34 @@
+---
+title: "Metabolite Annotation"
+output: html_document
+---
+  
+## Query single MS/MS spectrum
+
+A number of tools are available to interrogate to which compound(s) a particular MS/MS spectrum might correspond:  
+  
+  - [mzCloud](https://beta.mzcloud.org/dataviewer#/app/dataviewer/search/spectrum)  
+  - [MASST](https://masst.ucsd.edu/)  
+  - [SIRIUS](https://bio.informatik.uni-jena.de/software/sirius/)
+  - [MoNA - MassBank of North America](https://mona.fiehnlab.ucdavis.edu/spectra/search)  
+  - [MassBank Europe](https://massbank.eu/MassBank/Search)  
+    
+<br>
+In the examples listed below I show how to search to which compound(s) our MS/MS spectra of interest might correspond to by using the aforementioned tools:  
+    
+  - [Example 1](https://mar-garcia.github.io/training_metabolomics/practical/annotation/example1_1.html)  
+  - [Example 2](https://mar-garcia.github.io/training_metabolomics/practical/annotation/example1_2.html)   
+
+<br>
+<br>
+
+## Molecular Networking
+
+Molecular Networking aims to identify potential similarities among all MS/MS spectra within a dataset.  
+A series of different tools have been developed to deal with this aim,most of them hosted in the [Global Natural Products Social Molecular Networking](https://gnps.ucsd.edu/).  
+  
+Below I list some of this tools together with some examples:  
+  
+  - **Molecular Networking:**   
+    - [Example 1](https://mar-garcia.github.io/training_metabolomics/practical/annotation/example2_1.html)  
+  
