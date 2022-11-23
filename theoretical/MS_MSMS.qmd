@@ -9,21 +9,277 @@ format:
     footer: mar.garcia@fmach.it
 ---
 
-## Quarto
+## Mass Spectrometry
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+::: incremental   
 
-## Bullets
+- MS is a wide-ranging analytical technique that relates to the production and detection of charged species.    
+  
+- The basic principle of MS is to generate ions from compounds by a method that would be able to separate these ions by their mass-to-charge ratio (m/z) and to detect them by their respective m/z and abundances.  
+  
+- Ionization is the process whereby electrons are either removed or added to atoms or molecules to produce ions.   
 
-When you click the **Render** button a document will be generated that includes:
+::: 
 
--   Content authored with markdown
--   Output from executable code
+::: footer
+CHROMacademy: LC-MS Interpretation  
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384
+:::
 
-## Code
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+## Structure of a Mass Spectrometer
+<br>
+
+![](images/MS_structure.png)
+
+::: footer
+P. Franceschi, Metabolomics Lectures (2022). GitHub repository:  
+https://github.com/pietrofranceschi/Metabolomics_lectures
+:::
+
+---
+
+**Some basic concepts...**
+
+A simple mass spectrum is represented by a two dimensional bar plot:
+
+![](https://chromacademyliveblobs.blob.core.windows.net/chromacademy-live-blobs/0ac69862-4127-4edb-bf99-9ae262b843ca/assets/YzrbBz9W57VhJgtt_dZZGYIxSc-pgSgVA.png)
+
+::: footer
+CHROMacademy: LC-MS Interpretation
+:::
+
+---
+
+**Some basic concepts...**
+  
+Usually each compound produce >1 ion
+
+![](images/MS_ions.png)
+
+::: footer
+P. Franceschi, Metabolomics Lectures (2022). GitHub repository:  
+https://github.com/pietrofranceschi/Metabolomics_lectures
+:::
+
+---
+
+<br>
+
+![](https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs00216-020-03019-3/MediaObjects/216_2020_3019_Figa_HTML.png?as=webp)
+
+::: footer
+Anal Bioanal Chem. 2021 Jan;413(2):503-517. doi: 10.1007/s00216-020-03019-3
+:::
+
+
+## Points-per-peak  
+
+Enough data points per chromatographic peak   
+(i.e., at least 7–8) 
+
+![](https://analyticalsciencejournals.onlinelibrary.wiley.com/cms/asset/fcd7d8b5-2876-41d3-bfe4-a81f2890eced/mas21715-fig-0003-m.jpg)
+
+::: footer
+Mass Spectrom Rev. 2021. doi: 10.1002/mas.21715
+:::
+
+
+## Points-per-peak  
+
+![](images/ppp_fs.png){fig-align="center"}
+
+## Mass resolution
+
+::: incremental   
+
+  - Ability of a mass analyzer to separate two adjacent peaks:  
+
+    - Low-resolution mass spectrometers (LRMS) can separate sufficiently two ions differing by one mass unit  
+    - High-resolution mass instruments (HRMS) can discriminate between isobaric species, even with in complex matrices  
+  - HRMS instruments are required to determine the elemental composition.  
+  
+::: 
+
+::: footer
+CHROMacademy: LC-MS Interpretation  
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384
+:::
+
+
+## Resolving power
+
+RP = M / d(M)
+
+![](images/resolvingpower.png)
+
+::: footer
+Adapted from:  
+https://www.technologynetworks.com/proteomics/articles/the-full-picture-the-right-picture-high-resolution-mass-spectrometry-for-metabolomic-profiling-354791
+:::
+
+
+## Isotopic patterns
 
 ```{r}
-1 + 1
+ip_c <- data.frame(
+  i = c("C(12)", "C(13)", NA),
+  m = c(12.000000, 13.003355, NA),
+  d = c(0, 1.003355, NA),
+  a = c(98.9, 1.10, NA)
+)
+
+ip_n <- data.frame(
+  i = c("N(14)", "N(15)", NA),
+  m = c(14.003074, 15.000109, NA),
+  d = c(0, 15.000109-14.003074, NA),
+  a = c(99.63, 0.37, NA)
+)
+
+ip_o <- data.frame(
+  i = c("O(16)", "O(17)", "O(18)"),
+  m = c(15.994915, 16.999131, 17.999159),
+  d = c(0, 16.999131-15.994915, 17.999159-15.994915),
+  a = c(99.76, 0.038, 0.20)
+)
+
+colnames(ip_c) <- colnames(ip_n) <- colnames(ip_o) <- c(
+  "Isotope", "Mass", "d(Mass)", "Abundance")
+
+library(kableExtra)
+options(knitr.kable.NA = '')
+rbind(ip_c, ip_n, ip_o) %>%
+  kbl() %>%
+  kable_styling(full_width = F)
 ```
+
+
+## Isotopic patterns
+
+Theoretical isotopic pattern calculator: [enviPat](https://www.envipat.eawag.ch/)  
+Check examples with: C7H6O5 and C8H12N4O3
+
+
+![](images/envipat.png){fig-align="center"}
+
+## Mass resolution & Isotopic patterns
+
+![](images/res30vs100.png){fig-align="center"}
+
+
+
+## Mass resolution & Isotopic patterns
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{r}
+rbind(ip_c[, c(1, 3)], ip_n[, c(1, 3)], ip_o[, c(1, 3)]) %>%
+  kbl() %>%
+  kable_styling(full_width = F)
+```
+
+:::
+
+::: {.column width="60%"}
+
+![](images/res30vs100.png){fig-align="center"}
+
+:::
+
+:::
+
+## Mass resolution
+
+::: {layout-ncol=2}
+
+Acquiring data at higher resolving power results in better mass accuracy, but the scan duration increases with increasing resolving power, thus diminish number of scan/peak
+
+![](images/mass_acuracy.png)
+
+:::
+
+::: footer
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384
+:::
+
+
+## Mass resolution
+
+![](images/ppp_hr.png){fig-align="center"}
+
+## Full Scan Mode
+
+Only one MS function without induced fragmentation is acquired to generate ions of the molecular species, adducts and in-source fragments.   
+
+![](images/FS.png)
+
+::: footer
+Mass Spectrom Rev. 2021. doi: 10.1002/mas.21715
+:::
+
+## Full Scan Mode
+
+::: incremental   
+
+Acquisition performed as a full scan over a wide m/z range, depending on the particular application and/or compounds of interest.    
+  
+  - Lipidomics: 100 - 2,000 Da
+  - Metabolomics on biofluids: 70-800 Da  
+:::
+
+![](images/FS.png)
+
+::: footer
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384  
+:::
+
+
+## Data Dependent Acquisition Mode
+
+The DDA mode allows the production of fragmentation spectra for structure elucidation.  
+
+The instrument acquires a full scan MS1 and, when certain criteria are met, performs a specified number of MS/MS acquisitions on the most intense ions before switching back to full scan MS1. 
+
+![](images/DDA.png)
+
+::: footer
+Mass Spectrom Rev. 2021. doi: 10.1002/mas.21715
+:::
+
+## Data Dependent Acquisition Mode
+
+The fragmentation is only performed on the signals that meet specified and user-guided criteria:
+
+- Signal threshold to switch from FS to MS/MS  
+- Number of MS/MS spectra per cycle  
+- Exclusion lists: static and dynamic  
+- Inclusion list (optional)  
+
+::: footer
+Mass Spectrom Rev. 2021. doi: 10.1002/mas.21715
+:::
+
+## Data Dependent Acquisition Mode
+
+![](https://analyticalsciencejournals.onlinelibrary.wiley.com/cms/asset/15c24c0a-a74e-44a0-9764-70be9604da95/mas21715-fig-0001-m.png){fig-align="center"}
+
+::: footer
+Mass Spectrom Rev. 2021. doi: 10.1002/mas.21715
+:::
+
+
+## Data Dependent Acquisition Mode
+
+![](images/DDA3.png){fig-align="center"}
+
+
+::: footer
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384
+:::
+
+
+## Data Dependent Acquisition Mode
+
+![](images/ppp_dda.png){fig-align="center"}

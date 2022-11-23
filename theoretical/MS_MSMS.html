@@ -7,7 +7,7 @@
 <link href="MS_MSMS_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="MS_MSMS_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MS_MSMS_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.36">
+  <meta name="generator" content="quarto-1.1.189">
 
   <meta name="author" content="Mar Garcia-Aloy">
   <title>MS and MS/MS</title>
@@ -19,10 +19,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="MS_MSMS_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="MS_MSMS_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -315,6 +320,9 @@
       margin-right: 0; 
     }
   </style>
+  
+  <script src="MS_MSMS_files/libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="MS_MSMS_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -325,27 +333,333 @@
   <p class="author">Mar Garcia-Aloy</p>
 </section>
 
-<section id="quarto" class="slide level2">
-<h2>Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <a href="https://quarto.org/docs/presentations/" class="uri">https://quarto.org/docs/presentations/</a>.</p>
-</section>
-<section id="bullets" class="slide level2">
-<h2>Bullets</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes:</p>
+<section id="mass-spectrometry" class="slide level2">
+<h2>Mass Spectrometry</h2>
+<div>
 <ul>
-<li>Content authored with markdown</li>
-<li>Output from executable code</li>
+<li class="fragment"><p>MS is a wide-ranging analytical technique that relates to the production and detection of charged species.</p></li>
+<li class="fragment"><p>The basic principle of MS is to generate ions from compounds by a method that would be able to separate these ions by their mass-to-charge ratio (m/z) and to detect them by their respective m/z and abundances.</p></li>
+<li class="fragment"><p>Ionization is the process whereby electrons are either removed or added to atoms or molecules to produce ions.</p></li>
 </ul>
+</div>
+<div class="footer">
+<p>CHROMacademy: LC-MS Interpretation<br>
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384</p>
+</div>
 </section>
-<section id="code" class="slide level2">
-<h2>Code</h2>
-<p>When you click the <strong>Render</strong> button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section id="structure-of-a-mass-spectrometer" class="slide level2">
+<h2>Structure of a Mass Spectrometer</h2>
+<p><br></p>
+
+<img data-src="images/MS_structure.png" class="r-stretch"><div class="footer">
+<p>P. Franceschi, Metabolomics Lectures (2022). GitHub repository:<br>
+https://github.com/pietrofranceschi/Metabolomics_lectures</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Some basic concepts…</strong></p>
+<p>A simple mass spectrum is represented by a two dimensional bar plot:</p>
+
+<img data-src="https://chromacademyliveblobs.blob.core.windows.net/chromacademy-live-blobs/0ac69862-4127-4edb-bf99-9ae262b843ca/assets/YzrbBz9W57VhJgtt_dZZGYIxSc-pgSgVA.png" class="r-stretch"><div class="footer">
+<p>CHROMacademy: LC-MS Interpretation</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Some basic concepts…</strong></p>
+<p>Usually each compound produce &gt;1 ion</p>
+
+<img data-src="images/MS_ions.png" class="r-stretch"><div class="footer">
+<p>P. Franceschi, Metabolomics Lectures (2022). GitHub repository:<br>
+https://github.com/pietrofranceschi/Metabolomics_lectures</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><br></p>
+
+<img data-src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs00216-020-03019-3/MediaObjects/216_2020_3019_Figa_HTML.png?as=webp" class="r-stretch"><div class="footer">
+<p>Anal Bioanal Chem. 2021 Jan;413(2):503-517. doi: 10.1007/s00216-020-03019-3</p>
+</div>
+</section>
+<section id="points-per-peak" class="slide level2">
+<h2>Points-per-peak</h2>
+<p>Enough data points per chromatographic peak<br>
+(i.e., at least 7–8)</p>
+
+<img data-src="https://analyticalsciencejournals.onlinelibrary.wiley.com/cms/asset/fcd7d8b5-2876-41d3-bfe4-a81f2890eced/mas21715-fig-0003-m.jpg" class="r-stretch"><div class="footer">
+<p>Mass Spectrom Rev.&nbsp;2021. doi: 10.1002/mas.21715</p>
+</div>
+</section>
+<section id="points-per-peak-1" class="slide level2">
+<h2>Points-per-peak</h2>
+
+<img data-src="images/ppp_fs.png" class="r-stretch quarto-figure-center"></section>
+<section id="mass-resolution" class="slide level2">
+<h2>Mass resolution</h2>
+<div>
+<ul>
+<li class="fragment"><p>Ability of a mass analyzer to separate two adjacent peaks:</p>
+<ul>
+<li class="fragment">Low-resolution mass spectrometers (LRMS) can separate sufficiently two ions differing by one mass unit<br>
+</li>
+<li class="fragment">High-resolution mass instruments (HRMS) can discriminate between isobaric species, even with in complex matrices<br>
+</li>
+</ul></li>
+<li class="fragment"><p>HRMS instruments are required to determine the elemental composition.</p></li>
+</ul>
+</div>
+<div class="footer">
+<p>CHROMacademy: LC-MS Interpretation<br>
+Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384</p>
+</div>
+</section>
+<section id="resolving-power" class="slide level2">
+<h2>Resolving power</h2>
+<p>RP = M / d(M)</p>
+
+<img data-src="images/resolvingpower.png" class="r-stretch"><div class="footer">
+<p>Adapted from:<br>
+https://www.technologynetworks.com/proteomics/articles/the-full-picture-the-right-picture-high-resolution-mass-spectrometry-for-metabolomic-profiling-354791</p>
+</div>
+</section>
+<section id="isotopic-patterns" class="slide level2">
+<h2>Isotopic patterns</h2>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Isotope </th>
+   <th style="text-align:right;"> Mass </th>
+   <th style="text-align:right;"> d(Mass) </th>
+   <th style="text-align:right;"> Abundance </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> C(12) </td>
+   <td style="text-align:right;"> 12.00000 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 98.900 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C(13) </td>
+   <td style="text-align:right;"> 13.00336 </td>
+   <td style="text-align:right;"> 1.003355 </td>
+   <td style="text-align:right;"> 1.100 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> N(14) </td>
+   <td style="text-align:right;"> 14.00307 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 99.630 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> N(15) </td>
+   <td style="text-align:right;"> 15.00011 </td>
+   <td style="text-align:right;"> 0.997035 </td>
+   <td style="text-align:right;"> 0.370 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> O(16) </td>
+   <td style="text-align:right;"> 15.99492 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 99.760 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> O(17) </td>
+   <td style="text-align:right;"> 16.99913 </td>
+   <td style="text-align:right;"> 1.004216 </td>
+   <td style="text-align:right;"> 0.038 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> O(18) </td>
+   <td style="text-align:right;"> 17.99916 </td>
+   <td style="text-align:right;"> 2.004244 </td>
+   <td style="text-align:right;"> 0.200 </td>
+  </tr>
+</tbody>
+</table>
+
 </div>
 </div>
-<div class="footer footer-default">
+</section>
+<section id="isotopic-patterns-1" class="slide level2">
+<h2>Isotopic patterns</h2>
+<p>Theoretical isotopic pattern calculator: <a href="https://www.envipat.eawag.ch/">enviPat</a><br>
+Check examples with: C7H6O5 and C8H12N4O3</p>
+
+<img data-src="images/envipat.png" class="r-stretch quarto-figure-center"></section>
+<section id="mass-resolution-isotopic-patterns" class="slide level2">
+<h2>Mass resolution &amp; Isotopic patterns</h2>
+
+<img data-src="images/res30vs100.png" class="r-stretch quarto-figure-center"></section>
+<section id="mass-resolution-isotopic-patterns-1" class="slide level2">
+<h2>Mass resolution &amp; Isotopic patterns</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Isotope </th>
+   <th style="text-align:right;"> d(Mass) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> C(12) </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C(13) </td>
+   <td style="text-align:right;"> 1.003355 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> N(14) </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> N(15) </td>
+   <td style="text-align:right;"> 0.997035 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> O(16) </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> O(17) </td>
+   <td style="text-align:right;"> 1.004216 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> O(18) </td>
+   <td style="text-align:right;"> 2.004244 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/res30vs100.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mass-resolution-1" class="slide level2">
+<h2>Mass resolution</h2>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p>Acquiring data at higher resolving power results in better mass accuracy, but the scan duration increases with increasing resolving power, thus diminish number of scan/peak</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="images/mass_acuracy.png"></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384</p>
+</div>
+</section>
+<section id="mass-resolution-2" class="slide level2">
+<h2>Mass resolution</h2>
+
+<img data-src="images/ppp_hr.png" class="r-stretch quarto-figure-center"></section>
+<section id="full-scan-mode" class="slide level2">
+<h2>Full Scan Mode</h2>
+<p>Only one MS function without induced fragmentation is acquired to generate ions of the molecular species, adducts and in-source fragments.</p>
+
+<img data-src="images/FS.png" class="r-stretch"><div class="footer">
+<p>Mass Spectrom Rev.&nbsp;2021. doi: 10.1002/mas.21715</p>
+</div>
+</section>
+<section id="full-scan-mode-1" class="slide level2">
+<h2>Full Scan Mode</h2>
+<div>
+<p>Acquisition performed as a full scan over a wide m/z range, depending on the particular application and/or compounds of interest.</p>
+<ul>
+<li class="fragment">Lipidomics: 100 - 2,000 Da</li>
+<li class="fragment">Metabolomics on biofluids: 70-800 Da<br>
+</li>
+</ul>
+</div>
+
+<img data-src="images/FS.png" class="r-stretch"><div class="footer">
+<p>Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384</p>
+</div>
+</section>
+<section id="data-dependent-acquisition-mode" class="slide level2">
+<h2>Data Dependent Acquisition Mode</h2>
+<p>The DDA mode allows the production of fragmentation spectra for structure elucidation.</p>
+<p>The instrument acquires a full scan MS1 and, when certain criteria are met, performs a specified number of MS/MS acquisitions on the most intense ions before switching back to full scan MS1.</p>
+
+<img data-src="images/DDA.png" class="r-stretch"><div class="footer">
+<p>Mass Spectrom Rev.&nbsp;2021. doi: 10.1002/mas.21715</p>
+</div>
+</section>
+<section id="data-dependent-acquisition-mode-1" class="slide level2">
+<h2>Data Dependent Acquisition Mode</h2>
+<p>The fragmentation is only performed on the signals that meet specified and user-guided criteria:</p>
+<ul>
+<li>Signal threshold to switch from FS to MS/MS<br>
+</li>
+<li>Number of MS/MS spectra per cycle<br>
+</li>
+<li>Exclusion lists: static and dynamic<br>
+</li>
+<li>Inclusion list (optional)</li>
+</ul>
+<div class="footer">
+<p>Mass Spectrom Rev.&nbsp;2021. doi: 10.1002/mas.21715</p>
+</div>
+</section>
+<section id="data-dependent-acquisition-mode-2" class="slide level2">
+<h2>Data Dependent Acquisition Mode</h2>
+
+<img data-src="https://analyticalsciencejournals.onlinelibrary.wiley.com/cms/asset/15c24c0a-a74e-44a0-9764-70be9604da95/mas21715-fig-0001-m.png" class="r-stretch quarto-figure-center"><div class="footer">
+<p>Mass Spectrom Rev.&nbsp;2021. doi: 10.1002/mas.21715</p>
+</div>
+</section>
+<section id="data-dependent-acquisition-mode-3" class="slide level2">
+<h2>Data Dependent Acquisition Mode</h2>
+
+<img data-src="images/DDA3.png" class="r-stretch quarto-figure-center"><div class="footer">
+<p>Mol Nutr Food Res 2019;63(1):e1800384. doi: 10.1002/mnfr.201800384</p>
+</div>
+</section>
+<section id="data-dependent-acquisition-mode-4" class="slide level2">
+<h2>Data Dependent Acquisition Mode</h2>
+
+<img data-src="images/ppp_dda.png" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 <p>mar.garcia@fmach.it</p>
 </div>
 </section>
@@ -672,7 +986,8 @@
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
