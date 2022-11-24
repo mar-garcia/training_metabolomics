@@ -1,0 +1,203 @@
+---
+title: "Data Sharing and Standardization"
+author: "Mar Garcia-Aloy"
+format: 
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    footer: mar.garcia@fmach.it
+---
+
+
+# Reproducibility
+
+"Reproducibility is a cornerstone of the scientific process: only if my colleagues can reproduce my work should they trust its veracity"
+
+::: footer
+http://reproducibility.cs.arizona.edu/tr.pdf
+:::
+
+## Replication crisis
+
+"More than 70% of researchers have tried and failed to reproduce another scientist's experiments, and more than half have failed to reproduce their own experiments"
+
+![](images/reproducibility.png)
+
+::: footer
+Nature. 2016;533:452-454.  doi: 10.1038/533452a
+:::
+
+# Standardization
+
+---
+
+Standards make the information more accessible and enable the extraction of maximum value from data sets.  
+
+  - Standardization of terminology for an unambiguous description (ontologies)   
+  - Appropriate reporting of the methodology: details of the experiment are critical for data interpretation and re-use      
+
+::: footer
+Metabolomics. 2007;3(3):175-178. doi: 10.1007/s11306-007-0070-6
+:::
+
+
+## The Metabolomics Standards Initiative (MSI)
+
+  
+  - Need for data reporting standards such as checklist, minimal information required and common semantics  
+  - Formed in 2005 by leading experts in metabolomics with support from the Metabolomics Society  
+  
+:::: {.columns}
+
+::: {.column width="80%"}
+  - In 2007 MSI published a series of reporting standards for metabolomics: Metabolomics: 2007;3(3):175-256  
+
+:::
+
+::: {.column width="20%"}
+![](https://media.springernature.com/w138/springer-static/cover/journal/11306/3/3.jpg){fig-align="bottom"}
+:::
+
+:::
+
+
+## The Metabolomics Standards Initiative (MSI)
+
+Aimed to provide a common mechanism for describing the work, not to prescribe how an experiment has to be carried out
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+Working groups:  
+  
+  - Biological context metadata  
+  - Chemical analysis  
+  - Data processing  
+  - Ontology  
+  - Data exchange  
+
+:::
+
+::: {.column width="50%"}
+![](https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs11306-007-0070-6/MediaObjects/11306_2007_70_Fig2_HTML.gif?as=webp)
+:::
+
+:::
+
+::: footer
+Metabolomics. 2007;3(3):175-178. doi: 10.1007/s11306-007-0070-6
+:::
+
+
+## Chemical analysis MSI WG  
+
+### Proposed minimum reporting standards for chemical analysis  
+
+![](images/msi_id_levels.PNG)
+
+
+::: footer
+Metabolomics. 2007;3(3):211-221. doi: 10.1007/s11306-007-0082-2
+:::
+
+
+## Minimum Reporting Requirements 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+Information that should be documented in manuscripts to show the steps that have been taken to ensure the robustness of the analytical stages of a metabolic phenotyping experiment and its resulting data
+
+:::
+
+::: {.column width="50%"}
+
+![](images/minreports.webp){fig-align="center"}
+:::
+
+:::: 
+
+::: footer
+Suggestions made by the metabolomics QA and QC Consortium (mQACC)  
+Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
+:::
+
+
+# Data Sharing
+
+Sharing for repeatability is essential to ensure that colleagues and reviewers can evaluate our results based on accurate and complete evidence -> data sharing is needed for reproduce and reuse (data publication is insufficient)  
+
+::: footer
+http://reproducibility.cs.arizona.edu
+:::
+
+
+## Metabolomics data repositories
+
+:::: {.columns}
+
+::: {.column width="70%"}
+  
+  - [MetaboLights](https://www.ebi.ac.uk/metabolights): Nucleic Acids Res. 2020;48(D1):D440-D444. doi: 10.1093/nar/gkz1019.     
+  - [Metabolomics Workbench](https://www.metabolomicsworkbench.org/): Nucleic Acids Res. 2016;44(D1):D463-70. doi: 10.1093/nar/gkv1042.   
+  - [GNPS](https://gnps.ucsd.edu/): Nat Biotechnol. 2016;34(8):828-837. doi: 10.1038/nbt.3597.   
+
+:::
+
+::: {.column width="30%"}
+
+![](images/repositories.png)
+
+:::
+
+::::
+
+
+## Code repository services  
+    
+  - Complex pipelines (processing and analysis)  
+  - Good programming practices for reproducibility  
+  
+**Git repositories:**  
+Commonly used platforms fo computational resoure sharing: [GitHub](https://github.com/), [GitLab](https://gitlab.com/), [Bitbucket](https://bitbucket.org/), [SourceForge](https://sourceforge.net/)  
+<br>
+**Containers:**    
+Containers (i.e., docker) to package software/code computational environment
+
+
+## FAIR Data Principles
+  
+FAIR is the acronym for Findability, Accessibility, Interoperability, and Reusability.   
+Concepts defined to enhance the reusability of scientific data.  
+
+::: incremental   
+  
+  * **Findable:** Metadata and data should be easy to find -> Data need to be uploadable to data
+repositories    
+  * **Accessible:** Once the user finds the required data, she/he/they need to know how they can be accessed -> The repository should be visible for the scientific community and publicly available  
+
+::: 
+
+::: footer
+Biocrates, 2021: Whitepaper – FAIR compliant metabolomics profiling  
+Sci Data. 2016;3:160018. doi: 10.1038/sdata.2016.18.
+:::
+
+
+## FAIR Data Principles
+
+::: incremental   
+  
+  * **Interoperable:** The data usually need to be integrated with other data. In addition, the data need to interoperate with applications or workflows for analysis, storage, and processing -> Uploaded data require a harmonized format and common units to enable shared data from different sources  
+  * **Reusable:** metadata and data should be well-described so that they can be replicated and/or combined in different settings -> Data must be comparable, with long-term validity and independent of time  
+
+::: 
+
+::: footer
+Biocrates, 2021: Whitepaper – FAIR compliant metabolomics profiling  
+Sci Data. 2016;3:160018. doi: 10.1038/sdata.2016.18.
+:::
+
