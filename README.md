@@ -6,6 +6,7 @@ This repository contains a collection of material (both theoretical presentation
   
   - [QC samples](https://mar-garcia.github.io/training_metabolomics/theoretical/QC_samples.html)  
   - [MS and MS/MS](https://mar-garcia.github.io/training_metabolomics/theoretical/MS_MSMS.html)
+  - [Data sharing and standardization](https://mar-garcia.github.io/training_metabolomics/theoretical/data_sharing.html)
   
 
 ## Practical sessions  
