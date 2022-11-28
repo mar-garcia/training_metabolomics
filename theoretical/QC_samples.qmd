@@ -23,13 +23,13 @@ Quality Management (QM) encompasses a series of activities that provide a mechan
 Quality Management (QM) encompasses a series of activities that provide a mechanism to ensure that measurements are repeatable.  
 <br>
 **Some initial aspects to keep in mind...**  
-  
+
 ::: incremental
 
-  - MS performance degrade with time -> reduce as much as possible the length of the chromatographic run  
-  - We cannot avoid analytical variability -> Add QC samples along your sequence
-  - Randomize the order in which the samples will be injected  
-  - In case or large sample sets, consider stratifying the samples across batches    
+- MS performance degrade with time -> reduce as much as possible the length of the chromatographic run  
+- We cannot avoid analytical variability -> Add QC samples along your sequence
+- Randomize the order in which the samples will be injected  
+- In case or large sample sets, consider stratifying the samples across batches    
 :::
 
 
@@ -82,8 +82,8 @@ In case of large datasets -> block experimental design before randomization
 
 ::: incremental 
 
-  - Balance the number of samples for each factor of interest among the batches      
-  - Consider if allocate all samples from the same ID (i.e., plant, subject....) in the same batch  
+- Balance the number of samples for each factor of interest among the batches      
+- Consider if allocate all samples from the same ID (i.e., plant, subject....) in the same batch  
 :::
 
 
@@ -91,17 +91,33 @@ In case of large datasets -> block experimental design before randomization
 
 In case of large datasets -> block experimental design before randomization
 
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:  
+
+::: incremental  
+
+- 2 types of wines: white wine & red wine (20 samples /type of wine)  
+- 12 varieties: pinot grigio, chardonnay, vermentino, moscato, [...] pinot noir, cannonau, shiraz (2-6 samples /variety)  
+
+:::
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:
+
 ```{r}
-nr <- data.frame(
-  batch = rep(c("Batch 1","Batch 2"), each = 20),
-  color = rep(c("white", "red"), each = 20),
-  variety = c(rep("pi grig", 6), rep("chrdn", 6), rep("vrmnt", 2), 
-              rep("mosct", 2), rep("trminr", 2), rep("svigon", 2),
-              rep("merlot", 4), rep("legrn", 4), rep("sangio", 4), 
-              rep("pi noir", 4), rep("canon", 2), rep("shiraz", 2)),
-  order = rep(1:20, times = 2)
-)
-p1 <- nr %>%
+dt <- readxl::read_xlsx("rand_block_examples.xlsx")
+dt$batch <- rep(seq(2), each = nrow(dt)/2)
+dt$batch <- paste("Batch", dt$batch)
+dt$order <- rep(seq(nrow(dt)/2), 2)
+dt$variety <- gsub("pinot_", "p_", dt$variety)
+dt$variety <- gsub("gewurztraminer", "traminer", dt$variety)
+dt$variety <- substr(dt$variety, 1, 6)
+
+p1 <- dt %>%
   ggplot() + 
   geom_point(aes(y = batch, x = order, fill = color), pch = 21, size = 3)  + 
   geom_text(aes(y = batch, x = order, label = variety), angle = 90, size = 3, 
@@ -111,14 +127,145 @@ p1 <- nr %>%
   theme(aspect.ratio = 0.5, legend.position = "none") +
   ggtitle("non block & non random") 
 
-rn <- nr
-set.seed(321)
-rn$order <- sample(seq(40))
-rn <- rn[order(rn$color, rn$variety, rn$order),]
-rn$batch <- rep(c("Batch 1","Batch 2"), 20)
-rn <- rn[order(rn$batch, rn$order),]
-rn$order <- rep(1:20, times = 2)
-p2 <- rn %>%
+dt <- readxl::read_xlsx("rand_block_examples.xlsx")
+tmp <- cbind(dt[c(1:20), ],
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(21:40), ]
+)
+colnames(tmp)[5:10] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:
+
+```{r}
+dt$color <- factor(dt$color, levels = unique(dt$color))
+table(dt$color)
+dt$variety <- factor(dt$variety, levels = unique(dt$variety))
+table(dt$color, dt$variety)
+```
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:
+
+::: incremental  
+
+- Distribute the samples among 2 batches  
+- Same amount of white/red wines /batch  
+- Same amount of each variety /batch  
+
+:::
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:  
+
+### Step 1: randomize samples
+
+```{r}
+set.seed(123)
+dt$rnd <- sample(seq(nrow(dt)))
+
+tmp <- cbind(dt[c(1:20), ],
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(21:40), ]
+)
+colnames(tmp)[6:11] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:  
+
+### Step 2: order by color - variety - random
+
+```{r}
+dt <- dt[order(dt$color, dt$variety, dt$rnd),]
+
+tmp <- cbind(dt[c(1:20), ],
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(21:40), ]
+)
+colnames(tmp)[6:11] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:  
+
+### Step 3: distribute 1 sample/batch
+
+```{r}
+dt$batch <- rep(seq(2), nrow(dt)/2)
+dt$variety <- gsub("pinot_", "pino_", dt$variety)
+dt$variety <- substr(dt$variety, 1, 11)
+
+tmp <- cbind(dt[c(1:20), ],
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(21:40), ]
+)
+colnames(tmp)[7:8] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:  
+
+### Step 4: order by batch - random
+
+```{r}
+dt <- dt[order(dt$batch, dt$rnd),]
+dt$variety <- substr(dt$variety, 1, 10)
+
+tmp <- cbind(dt[c(1:20), ],
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(21:40), ]
+)
+colnames(tmp)[7:8] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 1  
+
+Wine study:  
+
+```{r}
+dt$order <- rep(1:20, times = 2)
+dt$batch <- paste("Batch", dt$batch)
+dt$variety <- gsub("pino_", "p_", dt$variety)
+dt$variety <- gsub("gewurztraminer", "traminer", dt$variety)
+dt$variety <- substr(dt$variety, 1, 6)
+p2 <- dt %>%
   ggplot() + 
   geom_point(aes(y = batch, x = order, fill = color), pch = 21, size = 3)  + 
   geom_text(aes(y = batch, x = order, label = variety), angle = 90, size = 3, 
@@ -132,18 +279,303 @@ p1 + p2
 ```
 
 
+## Randomization: large datasets - Expl 1  
+
+Wine study:  
+
+```{r}
+table(dt$batch, dt$color)
+table(dt$batch[dt$color == "white"], dt$variety[dt$color == "white"])
+table(dt$batch[dt$color == "red"], dt$variety[dt$color == "red"])
+```
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study with cross-over design:  
+
+::: incremental  
+
+- 2 foods: A & B   
+- 10 volunteers (5 men & 5 women)  
+- 8 time-points /intervention  
+- 2 sequences: A -> B / B -> A  
+
+:::
+
+## Randomization: large datasets - Expl 2  
+
+:::: {.columns}
+
+::: {.column width="35%"}
+
+Kinetic study with cross-over design:  
+
+- 2 foods: A & B   
+- 10 volunteers  
+- 8 time-points /intervention  
+- 2 sequences  
+
+:::
+
+::: {.column width="65%"}
+
+```{r}
+par(mar = c(3,0,0,0))
+plot(c(0, 1, 2, 4, 6, 12, 24, 48), c(0, 2, 4, 8, 4, 2, 1, 0), bty = "l", 
+     type = "b", xlab = "time point", ylab = "", xaxt = "n", yaxt = "n")
+axis(1, c(0, 1, 2, 4, 6, 12, 24, 48), paste0(c(0, 1, 2, 4, 6, 12, 24, 48), "h"))
+```
+
+:::
+
+::::
+
+
+::: incremental  
+
+- All samples from the same volunteer in the same batch    
+
+:::
+
+## Randomization: large datasets - Expl 1  
+
+Kinetic study:
+
+```{r}
+dt <- readxl::read_xlsx("rand_block_examples.xlsx", sheet = 2)
+dt$batch <- rep(seq(2), each = nrow(dt)/2)
+dt$batch <- paste("Batch", dt$batch)
+dt$order <- rep(seq(nrow(dt)/2), 2)
+dt$time <- formatC(dt$time, width = 2, flag = "0")
+dt$id <- paste(formatC(dt$volunteer, width = 2, flag = "0"), 
+               dt$food, dt$time, sep = "_")
+
+p1 <- dt[c(1:20, 81:100),] %>%
+  ggplot() + 
+  geom_point(aes(y = batch, x = order, fill = gender), pch = 21, size = 3)  + 
+  geom_text(aes(y = batch, x = order, label = id), angle = 90, size = 3, 
+            hjust = 1.1, vjust = 0, col = "grey") +
+  theme_bw() + xlab("Injection Order") + ylab("") + 
+  scale_fill_brewer(palette = "Set1", name = "Gender") + 
+  theme(aspect.ratio = 0.5, legend.position = "none") +
+  ggtitle("non block & non random") 
+
+dt <- readxl::read_xlsx("rand_block_examples.xlsx", sheet = 2)
+tmp <- cbind(dt[c(1:80), ],
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(81:160), ]
+)
+colnames(tmp)[5:10] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+  
+10 volunteers x 2 foods/volunteer x 8 time-points /food / volunteer = 160 samples  
+
+::: incremental  
+
+- Distribute the samples among 2 batches  
+- Allocate 80 samples/batch    
+- Put all samples from the same subject in the same batch  
+- Same amount of men & women /batch  
+- Distribute equally the order of interventions (A->B / B->A) between batches
+
+:::
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+### Step 1: randomize subjects
+
+```{r}
+dtx <- data.frame(
+  volunteer = seq(10),
+  gender = rep(c("male", "female"), each = 5),
+  seq = rep(c("AB", "BA"), times = 5)
+)
+dtx$gender <- factor(dtx$gender, levels = unique(dtx$gender))
+
+set.seed(123)
+dtx$rnd <- sample(seq(nrow(dtx)))
+
+print(dtx, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+### Step 2: order by gender - sequence - random
+
+```{r}
+dtx <- dtx[order(dtx$gender, dtx$seq, dtx$rnd),]
+print(dtx, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+### Step 3: distribute 1 volunteer/batch
+
+```{r}
+dtx$batch <- rep(seq(2), nrow(dtx)/2)
+print(dtx, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+### Step 3: distribute 1 volunteer/batch
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+table(paste("Batch", dtx$batch), dtx$gender)
+table(paste("Batch", dtx$batch), dtx$seq)
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+table(dtx$seq, dtx$gender, paste("Batch", dtx$batch))
+```
+
+:::
+
+::::
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+### Step 4: update dataset of samples with corresponding batch according to volunteer
+
+```{r}
+dt$batch <-  NA
+for(i in seq(nrow(dtx))){
+  idx <- which(dt$volunteer == dtx$volunteer[i])
+  dt$batch[idx] <- dtx$batch[i]
+}
+
+tmp <- cbind(dt[c(1:80), ],
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(81:160), ]
+)
+colnames(tmp)[6:11] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+### Step 5: randomize samples
+
+```{r}
+set.seed(123)
+dt$rnd <- sample(seq(nrow(dt)))
+
+tmp <- cbind(dt[c(1:80), ],
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(81:160), ]
+)
+colnames(tmp)[7:12] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+### Step 6: order by batch - random
+
+```{r}
+dt <- dt[order(dt$batch, dt$rnd),]
+
+tmp <- cbind(dt[c(1:80), ],
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             rep("", 20), 
+             dt[c(81:160), ]
+)
+colnames(tmp)[7:11] <- ""
+print(tmp, row.names = FALSE)
+```
+
+
+
+## Randomization: large datasets - Expl 2  
+
+Kinetic study:  
+
+```{r}
+dt$order <- rep(1:80, times = 2)
+dt$batch <- paste("Batch", dt$batch)
+dt$time <- formatC(dt$time, width = 2, flag = "0")
+dt$id <- paste(formatC(dt$volunteer, width = 2, flag = "0"), 
+               dt$food, dt$time, sep = "_")
+
+p2 <- dt[c(1:20, 81:100),] %>%
+  ggplot() + 
+  geom_point(aes(y = batch, x = order, fill = gender), pch = 21, size = 3)  + 
+  geom_text(aes(y = batch, x = order, label = id), angle = 90, size = 3, 
+            hjust = 1.1, vjust = 0, col = "grey") +
+  theme_bw() + xlab("Injection Order") + ylab("") + 
+  scale_fill_brewer(palette = "Set1", name = "Gender") + 
+  theme(aspect.ratio = 0.5, legend.position = "bottom") +
+  ggtitle("block & random")
+
+p1 + p2
+```
+
+
 ## Quality Control Samples (QC)
 
 Ref samples should be regularly injected along the sequence.  
-  
+
 They measure analytical stability (the sample is the same).  
 <br>
 Options:
-  
-  -   Pooled samples (study-specific, intra-batch, long-term QC)*  
-  -   Phenotypic pooled samples*
-  -   Commercially available sample
-  -   Synthetic chemical standards mixture  
+
+-   Pooled samples (study-specific, intra-batch, long-term QC)*  
+-   Phenotypic pooled samples*
+-   Commercially available sample
+-   Synthetic chemical standards mixture  
 
 
 *They are representative of the composition of the study samples  
@@ -221,37 +653,37 @@ Metabolomics. 2022;18(9):70. doi: 10.1007/s11306-022-01926-3
 
 
 
-## Evaluation of QC samples  
+## Analytical Quality Assessment  
 
 ::: incremental 
-  
-  - General random/systematic effects monitorization (PCA)  
-  - Within-feature analysis precision (mass accuracy/stability, RT/intensity stability)   
-  - Within-feature linearity  
+
+- General random/systematic effects monitoring (PCA)  
+- Within-feature analysis precision (mass accuracy/stability, RT/intensity stability)   
+- Within-feature linearity  
 :::
 
-## QC evaluation
+## Analytical Quality Assessment  
 
 General overview through PCA: Wine samples colored by type
 
 ![](images/NEG_wines_PCA_type.png)
 
 
-## QC evaluation
+## Analytical Quality Assessment  
 
 General overview through PCA: Wines colored by inj. order
 
 ![](images/NEG_wines_PCA_order.png)
 
 
-## QC evaluation
+## Analytical Quality Assessment  
 
 General overview through PCA: Urine samples colored by type
 
 ![](images/NEG_urine_PCA_type.png)
 
 
-## QC evaluation
+## Analytical Quality Assessment  
 
 General overview through PCA: Urines colored by inj. order
 

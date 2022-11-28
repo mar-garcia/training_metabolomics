@@ -119,7 +119,14 @@ https://www.technologynetworks.com/proteomics/articles/the-full-picture-the-righ
 :::
 
 
-## Isotopic patterns
+## Isotopic patterns{#font-size}
+
+```{css, echo=FALSE}
+#font-size, 
+#font-size {
+ font-size: 0.8em;
+}
+```
 
 ```{r}
 ip_c <- data.frame(
@@ -137,20 +144,29 @@ ip_n <- data.frame(
 )
 
 ip_o <- data.frame(
-  i = c("O(16)", "O(17)", "O(18)"),
-  m = c(15.994915, 16.999131, 17.999159),
-  d = c(0, 16.999131-15.994915, 17.999159-15.994915),
-  a = c(99.76, 0.038, 0.20)
+  i = c("O(16)", "O(17)", "O(18)", NA),
+  m = c(15.994915, 16.999131, 17.999159, NA),
+  d = c(0, 16.999131-15.994915, 17.999159-15.994915, NA),
+  a = c(99.76, 0.038, 0.20, NA)
 )
 
-colnames(ip_c) <- colnames(ip_n) <- colnames(ip_o) <- c(
+ip_h <- data.frame(
+  i = c("H(1)", "H(2)"),
+  m = c(1.007825, 2.014102),
+  d = c(0, 2.014102-1.007825),
+  a = c(99.9, 0.015)
+)
+
+colnames(ip_c) <- colnames(ip_n) <- colnames(ip_o) <- colnames(ip_h) <- c(
   "Isotope", "Mass", "d(Mass)", "Abundance")
 
 library(kableExtra)
 options(knitr.kable.NA = '')
-rbind(ip_c, ip_n, ip_o) %>%
+rbind(ip_c, ip_n, ip_o, ip_h) %>%
   kbl() %>%
-  kable_styling(full_width = F)
+  kable_styling(full_width = F) %>%
+  row_spec(c(2, 5), background = "#E41A1C90") %>%
+  row_spec(c(8, 12), background = "#E41A1C20")
 ```
 
 
@@ -168,16 +184,25 @@ Check examples with: C7H6O5 and C8H12N4O3
 
 
 
-## Mass resolution & Isotopic patterns
+## Mass resolution & Isotopic patterns{#font-size2}
+
+```{css, echo=FALSE}
+#font-size2, 
+#font-size2 {
+ font-size: 0.8em;
+}
+```
 
 :::: {.columns}
 
 ::: {.column width="40%"}
 
 ```{r}
-rbind(ip_c[, c(1, 3)], ip_n[, c(1, 3)], ip_o[, c(1, 3)]) %>%
+rbind(ip_c[, c(1, 3)], ip_n[, c(1, 3)], ip_o[, c(1, 3)], ip_h[, c(1, 3)]) %>%
   kbl() %>%
-  kable_styling(full_width = F)
+  kable_styling(full_width = F) %>%
+  row_spec(c(2, 5), background = "#E41A1C90") %>%
+  row_spec(c(8, 12), background = "#E41A1C20")
 ```
 
 :::
