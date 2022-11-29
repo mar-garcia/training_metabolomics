@@ -87,11 +87,6 @@ In case of large datasets -> block experimental design before randomization
 :::
 
 
-## Randomization  
-
-In case of large datasets -> block experimental design before randomization
-
-
 ## Randomization: large datasets - Expl 1  
 
 Wine study:  
