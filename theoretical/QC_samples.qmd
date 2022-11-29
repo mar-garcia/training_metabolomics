@@ -260,6 +260,7 @@ dt$batch <- paste("Batch", dt$batch)
 dt$variety <- gsub("pino_", "p_", dt$variety)
 dt$variety <- gsub("gewurztraminer", "traminer", dt$variety)
 dt$variety <- substr(dt$variety, 1, 6)
+dt$color <- factor(dt$color, levels = c("red", "white"))
 p2 <- dt %>%
   ggplot() + 
   geom_point(aes(y = batch, x = order, fill = color), pch = 21, size = 3)  + 
@@ -292,9 +293,9 @@ Kinetic study with cross-over design:
 ::: incremental  
 
 - 2 foods: A & B   
+- 2 sequences: A -> B / B -> A  
 - 10 volunteers (5 men & 5 women)  
 - 8 time-points /intervention  
-- 2 sequences: A -> B / B -> A  
 
 :::
 
@@ -307,9 +308,9 @@ Kinetic study with cross-over design:
 Kinetic study with cross-over design:  
 
 - 2 foods: A & B   
+- 2 sequences  
 - 10 volunteers  
 - 8 time-points /intervention  
-- 2 sequences  
 
 :::
 
@@ -503,10 +504,9 @@ tmp <- cbind(dt[c(1:80), ],
              rep("", 20), 
              rep("", 20), 
              rep("", 20), 
-             rep("", 20), 
              dt[c(81:160), ]
 )
-colnames(tmp)[7:12] <- ""
+colnames(tmp)[7:11] <- ""
 print(tmp, row.names = FALSE)
 ```
 
